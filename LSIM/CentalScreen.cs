@@ -26,7 +26,13 @@ namespace LSIM
         public double H;
         public double Swcr;
         public double Sowc;
+        
         public double[] PERM;
+        public double[] VISC;
+        public double[] Z;
+        public double[] Q;
+
+
         public double PV;
         public double OIP;
         double VISCO;
@@ -90,6 +96,9 @@ namespace LSIM
         void SetPerms(int lines, double mean, double V2)
         {
             PERM = new double[lines];
+            VISC = new double[lines];
+            Z = new double[lines];
+            Q = new double[lines];
 
             double B = 1 / V2;
             double C = 1 / (mean * V2);
@@ -150,7 +159,44 @@ namespace LSIM
 
                 chart2.Series[0].Points.AddXY(Z, (N + 0.5) * H / PERM.Length);
             }
+
+            chart2.Series[1].Points.Clear();
+            chart2.Series[1].Points.Clear();
+            chart2.Series[1].Points.AddXY(0, 0);
+
+            // Calculate viscosity from position Z
+
+            for (int it = 0; it < 10; ++it)
+            {
+                for (int iw = 0; iw < Z.Length; ++iw)
+                {
+                    if (Z[iw] > L) VISC[iw] = VISCW;
+                    else
+                        VISC[iw] = (VISCO * (L - Z[iw]) + VISCW * Z[iw]) / L;
+
+                    Q[iw] = PERM[iw] * 1e-15 * DP * B * H / ((VISC[iw] + VISCO) * 0.5 * L * Z.Length);
+                }
+
+                chart2.Series[1].Points.Clear();
+                chart2.Series[1].Points.Clear();
+                chart2.Series[1].Points.AddXY(0, 0);
+
+                for (int iw = 0; iw < Z.Length; ++iw)
+                {
+                    Z[iw] = Q[iw] * T * Z.Length / (B * H * Swcr * PORO);
+                    chart2.Series[1].Points.AddXY(Z[iw], (iw + 0.5) * H / PERM.Length);
+                }
+            }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            double T = Convert.ToDouble(numericUpDown1.Value);
+
+            if (comboBox1.SelectedIndex == 1) T = T * 86400;
+            if (comboBox1.SelectedIndex == 2) T = T * 86400 * 365;
+        }
+
     }
 
     class Statistic

@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -69,12 +70,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -416,55 +416,54 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BorderlineColor = System.Drawing.Color.Black;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea1.AxisX.LabelStyle.Format = "N1";
-            chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisX.ScaleView.MinSize = 0D;
-            chartArea1.AxisX.ScaleView.SmallScrollMinSize = 0D;
-            chartArea1.AxisX.ScrollBar.IsPositionedInside = false;
-            chartArea1.AxisX.Title = "Permability, mD";
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea1.AxisY.LabelStyle.Format = "N1";
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.AxisY.ScaleView.MinSize = 0D;
-            chartArea1.AxisY.ScaleView.SmallScrollMinSize = 0D;
-            chartArea1.AxisY.ScrollBar.IsPositionedInside = false;
-            chartArea1.AxisY.Title = "Height, m";
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea1.CursorX.Interval = 0.01D;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.CursorX.LineColor = System.Drawing.Color.Black;
-            chartArea1.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.CursorY.Interval = 0.01D;
-            chartArea1.CursorY.IsUserSelectionEnabled = true;
-            chartArea1.CursorY.LineColor = System.Drawing.Color.Black;
-            chartArea1.CursorY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea4.AxisX.IsLabelAutoFit = false;
+            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.AxisX.LabelStyle.Format = "N1";
+            chartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.AxisX.ScaleView.MinSize = 0D;
+            chartArea4.AxisX.ScaleView.SmallScrollMinSize = 0D;
+            chartArea4.AxisX.ScrollBar.IsPositionedInside = false;
+            chartArea4.AxisX.Title = "Permability, mD";
+            chartArea4.AxisX.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.AxisY.IsLabelAutoFit = false;
+            chartArea4.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.AxisY.LabelStyle.Format = "N1";
+            chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.AxisY.ScaleView.MinSize = 0D;
+            chartArea4.AxisY.ScaleView.SmallScrollMinSize = 0D;
+            chartArea4.AxisY.ScrollBar.IsPositionedInside = false;
+            chartArea4.AxisY.Title = "Height, m";
+            chartArea4.AxisY.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.CursorX.Interval = 0.01D;
+            chartArea4.CursorX.IsUserSelectionEnabled = true;
+            chartArea4.CursorX.LineColor = System.Drawing.Color.Black;
+            chartArea4.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.CursorY.Interval = 0.01D;
+            chartArea4.CursorY.IsUserSelectionEnabled = true;
+            chartArea4.CursorY.LineColor = System.Drawing.Color.Black;
+            chartArea4.CursorY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
+            legend4.Enabled = false;
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(226, 16);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Legend = "Legend1";
-            series1.MarkerSize = 7;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.Legend = "Legend1";
+            series6.MarkerSize = 7;
+            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series6.Name = "Series1";
+            this.chart1.Series.Add(series6);
             this.chart1.Size = new System.Drawing.Size(425, 437);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.comboBox2);
-            this.tabPage2.Controls.Add(this.label18);
+            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.numericUpDown1);
@@ -476,6 +475,19 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Sec",
+            "Day",
+            "Year"});
+            this.comboBox1.Location = new System.Drawing.Point(143, 32);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(77, 21);
+            this.comboBox1.TabIndex = 24;
             // 
             // label17
             // 
@@ -507,85 +519,65 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart2.BorderlineColor = System.Drawing.Color.Black;
             this.chart2.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.AxisX.IsLabelAutoFit = false;
-            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea2.AxisX.LabelStyle.Format = "N1";
-            chartArea2.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea2.AxisX.ScaleView.MinSize = 0D;
-            chartArea2.AxisX.ScaleView.SmallScrollMinSize = 0D;
-            chartArea2.AxisX.ScrollBar.IsPositionedInside = false;
-            chartArea2.AxisX.Title = "Length, m";
-            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea2.AxisY.IsLabelAutoFit = false;
-            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea2.AxisY.LabelStyle.Format = "N1";
-            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea2.AxisY.ScaleView.MinSize = 0D;
-            chartArea2.AxisY.ScaleView.SmallScrollMinSize = 0D;
-            chartArea2.AxisY.ScrollBar.IsPositionedInside = false;
-            chartArea2.AxisY.Title = "Height, m";
-            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea2.CursorX.Interval = 0.01D;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.CursorX.LineColor = System.Drawing.Color.Black;
-            chartArea2.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea2.CursorY.Interval = 0.01D;
-            chartArea2.CursorY.IsUserSelectionEnabled = true;
-            chartArea2.CursorY.LineColor = System.Drawing.Color.Black;
-            chartArea2.CursorY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea3.AxisX.IsLabelAutoFit = false;
+            chartArea3.AxisX.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea3.AxisX.LabelStyle.Format = "N1";
+            chartArea3.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea3.AxisX.ScaleView.MinSize = 0D;
+            chartArea3.AxisX.ScaleView.SmallScrollMinSize = 0D;
+            chartArea3.AxisX.ScrollBar.IsPositionedInside = false;
+            chartArea3.AxisX.Title = "Length, m";
+            chartArea3.AxisX.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea3.AxisY.IsLabelAutoFit = false;
+            chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea3.AxisY.LabelStyle.Format = "N1";
+            chartArea3.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea3.AxisY.ScaleView.MinSize = 0D;
+            chartArea3.AxisY.ScaleView.SmallScrollMinSize = 0D;
+            chartArea3.AxisY.ScrollBar.IsPositionedInside = false;
+            chartArea3.AxisY.Title = "Height, m";
+            chartArea3.AxisY.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea3.CursorX.Interval = 0.01D;
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.CursorX.LineColor = System.Drawing.Color.Black;
+            chartArea3.CursorX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea3.CursorY.Interval = 0.01D;
+            chartArea3.CursorY.IsUserSelectionEnabled = true;
+            chartArea3.CursorY.LineColor = System.Drawing.Color.Black;
+            chartArea3.CursorY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea3.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.chart2.Legends.Add(legend3);
             this.chart2.Location = new System.Drawing.Point(21, 70);
             this.chart2.Name = "chart2";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Legend = "Legend1";
-            series2.MarkerSize = 7;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "Series1";
-            this.chart2.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.Legend = "Legend1";
+            series4.MarkerSize = 7;
+            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series4.Name = "Series1";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series5.Legend = "Legend1";
+            series5.Name = "Series2";
+            this.chart2.Series.Add(series4);
+            this.chart2.Series.Add(series5);
             this.chart2.Size = new System.Drawing.Size(628, 493);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
-            // comboBox1
+            // button2
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Sec",
-            "Day",
-            "Year"});
-            this.comboBox1.Location = new System.Drawing.Point(143, 32);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(77, 21);
-            this.comboBox1.TabIndex = 24;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(275, 16);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(36, 13);
-            this.label18.TabIndex = 25;
-            this.label18.Text = "Style";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Oil and Liquid Rates",
-            "Oilcut vs Cum Oil"});
-            this.comboBox2.Location = new System.Drawing.Point(278, 32);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(223, 21);
-            this.comboBox2.TabIndex = 26;
+            this.button2.Location = new System.Drawing.Point(574, 32);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // CenterScreen
             // 
@@ -651,8 +643,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button button2;
     }
 }
 
