@@ -100,6 +100,8 @@ namespace LSIM
             Z = new double[lines];
             Q = new double[lines];
 
+            chart3.Series[0].Points.Clear();
+
             double B = 1 / V2;
             double C = 1 / (mean * V2);
             double A = Math.Pow(C, B) / Statistic.gamma(B);
@@ -116,6 +118,7 @@ namespace LSIM
                 Middle = (2 * N + 1) * Delta / 2; // middle point of height
 
                 // iteration for find permability of middle point
+
                 Left = 0;   
                 Right = 1e20;
                 K = (Left + Right) * 0.5;
@@ -146,7 +149,6 @@ namespace LSIM
             chart2.Series[0].Points.Clear();
             chart2.Series[0].Points.AddXY(0, 0);
 
-
             for (int N = 0; N < PERM.Length; ++N)
             {
                 double TMAX = PORO * Swcr * L * L * 0.5 * (VISCW + VISCO) / (PERM[N] * 1e-15 * DP);
@@ -160,9 +162,7 @@ namespace LSIM
                 chart2.Series[0].Points.AddXY(Z, (N + 0.5) * H / PERM.Length);
             }
 
-            chart2.Series[1].Points.Clear();
-            chart2.Series[1].Points.Clear();
-            chart2.Series[1].Points.AddXY(0, 0);
+
 
             // Calculate viscosity from position Z
 
@@ -184,19 +184,36 @@ namespace LSIM
                 for (int iw = 0; iw < Z.Length; ++iw)
                 {
                     Z[iw] = Q[iw] * T * Z.Length / (B * H * Swcr * PORO);
-                    chart2.Series[1].Points.AddXY(Z[iw], (iw + 0.5) * H / PERM.Length);
                 }
             }
+
+            // End iteration
+
+            chart2.Series[1].Points.Clear();
+            chart2.Series[1].Points.Clear();
+            chart2.Series[1].Points.AddXY(0, 0);
+
+            double COP = 0.00;
+            double LPR = 0.00;
+            
+            for (int iw = 0; iw < Z.Length; ++iw)
+            {
+                if (Z[iw] <= L)
+                {
+                    COP += Z[iw] * B * H * (1 - Swcr) * PORO / Z.Length;
+                }
+                else
+                {
+                    COP += L * B * H * (1 - Swcr) * PORO / Z.Length;
+                }
+
+                LPR += PERM[iw] * 1e-15 * DP * B * H / (VISC[iw] * L * Z.Length);
+
+                chart2.Series[1].Points.AddXY(Z[iw], (iw + 0.5) * H / PERM.Length);
+            }
+
+            chart3.Series[0].Points.AddXY(COP / OIP, LPR * 86400);
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            double T = Convert.ToDouble(numericUpDown1.Value);
-
-            if (comboBox1.SelectedIndex == 1) T = T * 86400;
-            if (comboBox1.SelectedIndex == 2) T = T * 86400 * 365;
-        }
-
     }
 
     class Statistic
