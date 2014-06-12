@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using Microsoft.Office.Core;
+using Microsoft.Office.Interop.Excel;
 
 namespace LSIM
 {
@@ -38,6 +40,7 @@ namespace LSIM
         double VISCO;
         double VISCW;
         double DP;
+        double ave = 0;
 
         private void SetModelOnClick(object sender, EventArgs e)
         {
@@ -58,8 +61,14 @@ namespace LSIM
                 Convert.ToDouble(boxPermV2.Text));
 
             chart1.Series[0].Points.Clear();
+            chart2.Series[0].Points.Clear();
+            chart3.Series[0].Points.Clear();
+            chart3.Series[1].Points.Clear();
+            chart4.Series[0].Points.Clear();
+            chart4.Series[1].Points.Clear();
+
             double sum = 0;
-            double ave = 0;
+            
 
             for (int N = 0; N < PERM.Length; ++N)
             {
@@ -142,25 +151,19 @@ namespace LSIM
             if (comboBox1.SelectedIndex == 1) T = T * 86400;
             if (comboBox1.SelectedIndex == 2) T = T * 86400 * 365;
 
-            chart2.Series[0].Points.Clear();
-            chart2.ChartAreas[0].AxisX.Maximum = 1.01 * L;
-            chart2.ChartAreas[0].AxisX.Minimum = 0;
 
-            chart2.Series[0].Points.Clear();
-            chart2.Series[0].Points.AddXY(0, 0);
+            //for (int N = 0; N < PERM.Length; ++N)
+            //{
+            //    double TMAX = PORO * Swcr * L * L * 0.5 * (VISCW + VISCO) / (PERM[N] * 1e-15 * DP);
+            //    double Z = L;
 
-            for (int N = 0; N < PERM.Length; ++N)
-            {
-                double TMAX = PORO * Swcr * L * L * 0.5 * (VISCW + VISCO) / (PERM[N] * 1e-15 * DP);
-                double Z = L;
+            //    if (TMAX > T)
+            //    {
+            //        Z = (VISCO * L - Math.Sqrt(VISCO * VISCO * L * L - (2 * (VISCO - VISCW) * T * PERM[N] * 1e-15 * DP / (PORO * Swcr)))) / (VISCO - VISCW);
+            //    }
 
-                if (TMAX > T)
-                {
-                    Z = (VISCO * L - Math.Sqrt(VISCO * VISCO * L * L - (2 * (VISCO - VISCW) * T * PERM[N] * 1e-15 * DP / (PORO * Swcr)))) / (VISCO - VISCW);
-                }
-
-                chart2.Series[0].Points.AddXY(Z, (N + 0.5) * H / PERM.Length);
-            }
+            //    chart2.Series[0].Points.AddXY(Z, (N + 0.5) * H / PERM.Length);
+            //}
 
 
 
@@ -177,10 +180,6 @@ namespace LSIM
                     Q[iw] = PERM[iw] * 1e-15 * DP * B * H / ((VISC[iw] + VISCO) * 0.5 * L * Z.Length);
                 }
 
-                chart2.Series[1].Points.Clear();
-                chart2.Series[1].Points.Clear();
-                chart2.Series[1].Points.AddXY(0, 0);
-
                 for (int iw = 0; iw < Z.Length; ++iw)
                 {
                     Z[iw] = Q[iw] * T * Z.Length / (B * H * Swcr * PORO);
@@ -189,30 +188,93 @@ namespace LSIM
 
             // End iteration
 
-            chart2.Series[1].Points.Clear();
-            chart2.Series[1].Points.Clear();
-            chart2.Series[1].Points.AddXY(0, 0);
+            chart2.Series[0].Points.Clear();
+            chart2.Series[0].Points.AddXY(0, 0);
+            chart2.ChartAreas[0].AxisX.Maximum = 1.01 * L;
+            chart2.ChartAreas[0].AxisX.Minimum = 0;
 
             double COP = 0.00;
             double LPR = 0.00;
-            
+            double WPR = 0.00;
+            double Krw = 0;
+            double Kro = 0;
+
             for (int iw = 0; iw < Z.Length; ++iw)
             {
-                if (Z[iw] <= L)
-                {
-                    COP += Z[iw] * B * H * (1 - Swcr) * PORO / Z.Length;
-                }
-                else
-                {
-                    COP += L * B * H * (1 - Swcr) * PORO / Z.Length;
-                }
+                if (Z[iw] > L) Z[iw] = L;
 
+                COP += Z[iw] * B * H * (1 - Swcr) * PORO / Z.Length;
                 LPR += PERM[iw] * 1e-15 * DP * B * H / (VISC[iw] * L * Z.Length);
 
-                chart2.Series[1].Points.AddXY(Z[iw], (iw + 0.5) * H / PERM.Length);
+                if (Z[iw] == L) WPR += PERM[iw] * 1e-15 * DP * B * H / (VISC[iw] * L * Z.Length);
+
+                chart2.Series[0].Points.AddXY(Z[iw], (iw + 0.5) * H / PERM.Length);
             }
 
             chart3.Series[0].Points.AddXY(COP / OIP, LPR * 86400);
+            chart3.Series[1].Points.AddXY(COP / OIP, (LPR - WPR) * 86400);
+
+            Krw = KRW * WPR * VISCW * L / (B * H * DP * ave * 1e-15);
+            Kro = (LPR - WPR) * VISCO * L / (B * H * DP * ave * 1e-15);
+
+            chart4.Series[0].Points.AddXY(Swcr + COP / OIP * (Swcr + Sowc), Krw);
+            chart4.Series[1].Points.AddXY(Swcr + COP / OIP * (Swcr + Sowc), Kro);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ApplicationClass XL = new ApplicationClass();
+            XL.Visible = false;
+            XL.Interactive = false;
+            XL.ScreenUpdating = false;
+
+            Workbook wb = XL.Workbooks.Add();
+            Worksheet ws = (Worksheet)wb.Sheets[1];
+
+            ((Range)ws.Cells[2, 1]).Value2 = "Permability, mD";
+            ((Range)ws.Cells[2, 2]).Value2 = "Height, m";
+
+           
+            for (int iw = 0; iw < chart1.Series[0].Points.Count; ++iw )
+            {
+                ((Range)ws.Cells[iw + 4, 1]).Value2 = chart1.Series[0].Points[iw].XValue;
+                ((Range)ws.Cells[iw + 4, 2]).Value2 = chart1.Series[0].Points[iw].YValues[0];
+            }
+
+            ((Range)ws.Cells[2, 4]).Value2 = "Position, m";
+            ((Range)ws.Cells[2, 5]).Value2 = "Height, m";
+
+            for (int iw = 1; iw < chart2.Series[0].Points.Count; ++iw)
+            {
+                ((Range)ws.Cells[iw + 3, 4]).Value2 = chart2.Series[0].Points[iw].XValue;
+                ((Range)ws.Cells[iw + 3, 5]).Value2 = chart2.Series[0].Points[iw].YValues[0];
+            }
+
+            ((Range)ws.Cells[2, 7]).Value2 = "% OIP";
+            ((Range)ws.Cells[2, 8]).Value2 = "Liquid rate, m3/day";
+            ((Range)ws.Cells[2, 9]).Value2 = "Oil rate, m3/day";
+
+            for (int iw = 0; iw < chart3.Series[0].Points.Count; ++iw)
+            {
+                ((Range)ws.Cells[iw + 4, 7]).Value2 = chart3.Series[0].Points[iw].XValue;
+                ((Range)ws.Cells[iw + 4, 8]).Value2 = chart3.Series[0].Points[iw].YValues[0];
+                ((Range)ws.Cells[iw + 4, 9]).Value2 = chart3.Series[1].Points[iw].YValues[0];
+            }
+
+            ((Range)ws.Cells[2, 11]).Value2 = "Sw";
+            ((Range)ws.Cells[2, 12]).Value2 = "Krw";
+            ((Range)ws.Cells[2, 13]).Value2 = "Kro";
+
+            for (int iw = 0; iw < chart3.Series[0].Points.Count; ++iw)
+            {
+                ((Range)ws.Cells[iw + 4, 11]).Value2 = chart4.Series[0].Points[iw].XValue;
+                ((Range)ws.Cells[iw + 4, 12]).Value2 = chart4.Series[0].Points[iw].YValues[0];
+                ((Range)ws.Cells[iw + 4, 13]).Value2 = chart4.Series[1].Points[iw].YValues[0];
+            }
+
+            XL.Visible = true;
+            XL.Interactive = true;
+            XL.ScreenUpdating = true;
         }
     }
 
