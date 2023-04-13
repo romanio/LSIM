@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Threading;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Excel;
+using static System.Net.Mime.MediaTypeNames;
+using System.Security.Cryptography;
 
 namespace LSIM
 {
@@ -23,12 +25,14 @@ namespace LSIM
 
         public double PORO;
         public double KRW;
+        public double KRO;
         public double L;
         public double B;
         public double H;
         public double Swcr;
         public double Sowc;
-        
+        public double Cw;
+        public double Co;
         public double[] PERM;
         public double[] VISC;
         public double[] Z;
@@ -51,8 +55,11 @@ namespace LSIM
             Sowc = Convert.ToDouble(boxSOWC.Text);
             Swcr = Convert.ToDouble(boxSWCR.Text);
             KRW = Convert.ToDouble(boxKRW.Text);
+            KRO = 1;
+            Co = Convert.ToDouble(boxOCorey.Text);
+            Cw = Convert.ToDouble(boxWCorey.Text);
             VISCO = Convert.ToDouble(boxOilVisc.Text) * 0.001;
-            VISCW = Convert.ToDouble(boxWaterVisc.Text) * 0.001 / KRW;
+            VISCW = Convert.ToDouble(boxWaterVisc.Text) * 0.001;
             DP = Convert.ToDouble(boxDepression.Text) * 101325;
 
             SetPerms(
@@ -68,7 +75,7 @@ namespace LSIM
             chart4.Series[1].Points.Clear();
 
             double sum = 0;
-            
+
 
             for (int N = 0; N < PERM.Length; ++N)
             {
@@ -100,8 +107,225 @@ namespace LSIM
             listOutput.Items.Add(String.Format("Minimum permability, mD \t\t{0,2:N2}", PERM[PERM.Length - 1]));
             listOutput.Items.Add(String.Format("Average permability, mD \t\t{0,2:N2}", ave));
             listOutput.Items.Add(String.Format("Square variation of permability \t{0,2:N3}", sigma / ave / ave));
+
+            chart5.Series[0].Points.Clear();
+            chart5.Series[1].Points.Clear();
+
+            double dSw = (1 - Sowc - Swcr) / 10; // Шаг по насыщенности
+            for (int J = 0; J <= 10; ++J)
+            {
+                double Sw = Swcr + dSw * J;
+                double Swd = GetSwd(Sw);
+                chart5.Series[0].Points.AddXY(Sw, GetKrw(Swd));
+                chart5.Series[1].Points.AddXY(Sw, GetKro(Swd));
+            }
+
+            GenerateLookUpTables();
         }
-       
+
+        public double GetSwd(double Sw)
+        {
+            return (Sw - Swcr) / (1 - Sowc - Swcr);
+        }
+
+        public double GetKro(double Swd)
+        {
+            return KRO * Math.Pow((1 - Swd), Co);
+        }
+
+        public double GetKrw(double Swd)
+        {
+            return KRW * Math.Pow(Swd, Cw);
+        }
+
+        public double Getfw(double Swd) // Функция fw в точке Swd
+        {
+            double A = (KRO * VISCW) / (KRW * VISCO);
+            return Math.Pow(Swd, Cw) / (Math.Pow(Swd, Cw) + A * Math.Pow((1 - Swd), Co));
+        }
+
+        public double GetdfwdSw(double Swd) // Производная fw` в точке Swd
+        {
+            double A = (KRO * VISCW) / (KRW * VISCO);
+            return (1 / (1 - Sowc - Swcr)) * A * (Cw * Math.Pow(Swd, (Cw - 1)) * Math.Pow((1 - Swd), Co) + Co * Math.Pow(Swd, Cw) * Math.Pow((1 - Swd), (Co - 1))) / (Math.Pow((Math.Pow(Swd, Cw) + A * Math.Pow((1 - Swd), Co)), 2));
+        }
+
+        public double GetSwf(double Sw)
+        {
+            double L = 0;
+            double R = 1;
+            double C = 0;
+
+            double Swd; // Нормированная насыщенность
+            double dfwdSw;
+            double Y = 1;
+            double eps = 1e-5;
+
+            while (Math.Abs(Y) > eps)
+            {
+                C = (L + R) * 0.5;
+
+                Swd = GetSwd(C);
+                dfwdSw = GetdfwdSw(Swd);
+
+                // Проводим линию касательной к функции fw, если в точке Swi она не пересекает ноль, значит решение пока не найдено
+
+                Y = Getfw(Swd) + dfwdSw * (Sw - C);
+
+                if (Y < -eps)
+                {
+                    L = C;
+                }
+
+                if (Y > +eps)
+                {
+                    R = C;
+                }
+            }
+
+            return C;
+        } // Получить насыщенность на фронте вытеснения
+
+        public double GetLaAverage(double Sw) // Определение средней вязкости в интервале насыщенности от Sw до (1 - Sor)
+        {
+            // Решение интеграла методом трапеции
+
+            int N = 49;
+            double dSw = (1 - Sowc - Swcr) / N;
+            double Swd;
+            double Kro, Krw;
+            double La1, La2;
+            double dfwdSw1, dfwdSw2;
+            double dfwdSwi;
+            double LaSum;
+
+            double h;
+
+            Swd = GetSwd(Sw);
+            Kro = GetKro(Swd);
+            Krw = GetKrw(Swd);
+
+            La1 = 1 / (Kro / VISCO + Krw / VISCW);
+
+            if (dSw == 0) return La1;
+
+            dfwdSw1 = GetdfwdSw(Swd);
+
+            dfwdSwi = dfwdSw1;
+
+            LaSum = 0;
+
+            for (int i = 0; i < (N); ++i)
+            {
+                Sw = Sw + dSw;
+
+                if (Sw > (1 - Sowc)) Sw = 1 - Sowc;
+
+                Swd = GetSwd(Sw);
+                Kro = GetKro(Swd);
+                Krw = GetKrw(Swd);
+                La2 = 1 / (Kro / VISCO + Krw / VISCW);
+                dfwdSw2 = GetdfwdSw(Swd);
+
+                h = dfwdSw1 - dfwdSw2;
+
+                LaSum = LaSum + 0.5 * (La1 + La2) * h;
+
+                La1 = La2;
+                dfwdSw1 = dfwdSw2;
+            }
+
+            return LaSum / dfwdSwi;
+        }
+    
+    public void GenerateLookUpTables()
+        {
+            double Swf = GetSwf(Swcr); // Насыщение на фронте вытеснения
+
+            // Нулевой момент времени
+
+            double Qibt = 1 / GetdfwdSw(GetSwd(Swf));
+            double dQibt = Qibt / 10;
+            double Labt = GetLaAverage(Swf);
+            
+            double Qo = 160.285 * (1 - Sowc - Swcr);
+
+            double time = 0;
+            double Qi_t_prev = 0;
+            double qt_t_prev = 0;
+            double qw = 0;
+            double qo = 0;
+            double WCT = 0;
+
+            for (int J = 0; J <= 10; ++J) // Десять расчетных шагов до начала обводнения
+            {
+                double Qi_t = dQibt * J;
+                double La_t = VISCO + (Labt - VISCO) * J / 10;
+                double qt_t = GetLiquidRate(La_t);
+
+                if (J > 0)
+                {
+                    time = time + 2 * (Qi_t - Qi_t_prev) * 160285 / (qt_t + qt_t_prev);
+                }
+
+                qo = qt_t;
+
+                if (J == 10) // Прорыв в добывающую скважину
+                {
+                    var fw = Getfw(GetSwd(Swf));
+                    qw = qt_t * fw;
+                    qo = qt_t - qw;
+                    WCT = fw;
+                }
+
+                //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi_t:N3}\t{Qi_t:N3}\t{Qi_t * 160.285:N3}\t{La_t:N4}");
+
+                Qi_t_prev = Qi_t;
+                qt_t_prev = qt_t;
+            }
+
+            int N = 101;
+            double dSw = (1 - Sowc - Swf) / (N - 1);
+            double Sw = Swf;
+
+            for (int i = 0; i < N - 2; ++i)
+            {
+                double Qi = 1 / GetdfwdSw(GetSwd(Sw));
+
+                var La = GetLaAverage(Sw);
+                var qt_t = GetLiquidRate(La);
+
+                var fw = Getfw(GetSwd(Sw));
+
+                var Swav = Sw + (1 - fw) / GetdfwdSw(  GetSwd(Sw));
+
+                qw = qt_t * fw;
+                qo = qt_t - qw;
+
+                WCT = fw;
+
+                if (WCT > 0.999) break;
+
+                if (i > 0)
+                {
+                    time = time + 2 * (Qi - Qi_t_prev) * 160285 / (qt_t + qt_t_prev);
+
+                    listOutput.Items.Add(String.Format("{0} \t {1}", Qi/Qo, La));
+                    //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi:N3}\t{Qi:N3}\t{160.285 * (Swav - BL.Swi):N3}\t{La:N4}");
+                }
+
+                Qi_t_prev = Qi;
+                qt_t_prev = qt_t;
+
+                Sw = Sw + dSw;
+            }
+        }
+
+        public double GetLiquidRate(double La)
+        {
+            return (1.127 * 0.200 * 20 * 300 * 500) / (La * 1000);
+        }
+
         void SetPerms(int lines, double mean, double V2)
         {
             PERM = new double[lines];
@@ -128,11 +352,11 @@ namespace LSIM
 
                 // iteration for find permability of middle point
 
-                Left = 0;   
+                Left = 0;
                 Right = 1e20;
                 K = (Left + Right) * 0.5;
                 Y = Statistic.incompletegamma(B, K * C);
-                
+
                 while (Math.Abs(Y - Middle) > Epsilon)
                 {
                     if (Y < Middle) Left = K;
@@ -234,8 +458,8 @@ namespace LSIM
             ((Range)ws.Cells[2, 1]).Value2 = "Permability, mD";
             ((Range)ws.Cells[2, 2]).Value2 = "Height, m";
 
-           
-            for (int iw = 0; iw < chart1.Series[0].Points.Count; ++iw )
+
+            for (int iw = 0; iw < chart1.Series[0].Points.Count; ++iw)
             {
                 ((Range)ws.Cells[iw + 4, 1]).Value2 = chart1.Series[0].Points[iw].XValue;
                 ((Range)ws.Cells[iw + 4, 2]).Value2 = chart1.Series[0].Points[iw].YValues[0];
@@ -276,6 +500,8 @@ namespace LSIM
             XL.Interactive = true;
             XL.ScreenUpdating = true;
         }
+
+
     }
 
     class Statistic
@@ -640,6 +866,4 @@ namespace LSIM
             return result;
         }
     }
-
 }
-
