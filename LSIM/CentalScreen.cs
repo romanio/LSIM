@@ -240,6 +240,10 @@ namespace LSIM
     
     public void GenerateLookUpTables()
         {
+
+            chart4.Series[0].Points.Clear();
+            chart4.Series[1].Points.Clear();
+
             double Swf = GetSwf(Swcr); // Насыщение на фронте вытеснения
 
             // Нулевой момент времени
@@ -276,8 +280,12 @@ namespace LSIM
                     qw = qt_t * fw;
                     qo = qt_t - qw;
                     WCT = fw;
+
+                    chart4.Series[1].Points.AddXY(Qi_t * 160.285 / Qo, 0);
                 }
 
+                chart4.Series[0].Points.AddXY(Qi_t * 160.285 / Qo, 1000 * La_t);
+                chart4.Series[1].Points.AddXY(Qi_t * 160.285 / Qo, WCT);
                 //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi_t:N3}\t{Qi_t:N3}\t{Qi_t * 160.285:N3}\t{La_t:N4}");
 
                 Qi_t_prev = Qi_t;
@@ -306,19 +314,26 @@ namespace LSIM
 
                 if (WCT > 0.999) break;
 
-                if (i > 0)
-                {
+
+               // if (i > 0)
+               // {
                     time = time + 2 * (Qi - Qi_t_prev) * 160285 / (qt_t + qt_t_prev);
 
-                    listOutput.Items.Add(String.Format("{0} \t {1}", Qi/Qo, La));
+                    listOutput.Items.Add(String.Format("{0} \t {1}", 160.285 * (Swav - Swcr)/Qo, La));
+
+                    chart4.Series[0].Points.AddXY(160.285 * (Swav - Swcr) / Qo, 1000 * La);
+                    chart4.Series[1].Points.AddXY(160.285 * (Swav - Swcr) / Qo, WCT);
                     //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi:N3}\t{Qi:N3}\t{160.285 * (Swav - BL.Swi):N3}\t{La:N4}");
-                }
+                //}
 
                 Qi_t_prev = Qi;
                 qt_t_prev = qt_t;
 
                 Sw = Sw + dSw;
             }
+
+            chart4.Series[0].Points.AddXY(1, 1000 * VISCW / KRW);
+            chart4.Series[1].Points.AddXY(1, 1);
         }
 
         public double GetLiquidRate(double La)

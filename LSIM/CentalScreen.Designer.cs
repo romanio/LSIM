@@ -176,10 +176,10 @@
             this.tabPage1.Controls.Add(this.boxLength);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(787, 674);
+            this.tabPage1.Size = new System.Drawing.Size(787, 670);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Input data";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -189,7 +189,7 @@
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(18, 274);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(82, 13);
+            this.label19.Size = new System.Drawing.Size(105, 17);
             this.label19.TabIndex = 36;
             this.label19.Text = "Corey W power";
             // 
@@ -197,7 +197,7 @@
             // 
             this.boxWCorey.Location = new System.Drawing.Point(110, 271);
             this.boxWCorey.Name = "boxWCorey";
-            this.boxWCorey.Size = new System.Drawing.Size(100, 21);
+            this.boxWCorey.Size = new System.Drawing.Size(100, 24);
             this.boxWCorey.TabIndex = 35;
             this.boxWCorey.Text = "3.720";
             // 
@@ -205,7 +205,7 @@
             // 
             this.boxOCorey.Location = new System.Drawing.Point(110, 244);
             this.boxOCorey.Name = "boxOCorey";
-            this.boxOCorey.Size = new System.Drawing.Size(100, 21);
+            this.boxOCorey.Size = new System.Drawing.Size(100, 24);
             this.boxOCorey.TabIndex = 34;
             this.boxOCorey.Text = "2.560";
             // 
@@ -214,7 +214,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(18, 247);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(80, 13);
+            this.label18.Size = new System.Drawing.Size(101, 17);
             this.label18.TabIndex = 33;
             this.label18.Text = "Corey O power";
             // 
@@ -234,10 +234,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.chart1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 26);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(545, 512);
+            this.tabPage3.Size = new System.Drawing.Size(545, 508);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Perms";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -297,10 +297,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.chart5);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 26);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(545, 512);
+            this.tabPage4.Size = new System.Drawing.Size(545, 508);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Rel Perms";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -326,6 +326,8 @@
             chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
             chartArea2.AxisY.LabelStyle.Format = "N1";
             chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea2.AxisY.Maximum = 100D;
+            chartArea2.AxisY.Minimum = 0D;
             chartArea2.AxisY.ScaleView.MinSize = 0D;
             chartArea2.AxisY.ScaleView.SmallScrollMinSize = 0D;
             chartArea2.AxisY.ScrollBar.IsPositionedInside = false;
@@ -369,16 +371,17 @@
             this.listOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listOutput.FormattingEnabled = true;
+            this.listOutput.ItemHeight = 17;
             this.listOutput.Location = new System.Drawing.Point(228, 560);
             this.listOutput.Name = "listOutput";
-            this.listOutput.Size = new System.Drawing.Size(553, 108);
+            this.listOutput.Size = new System.Drawing.Size(553, 106);
             this.listOutput.TabIndex = 31;
             // 
             // boxDepression
             // 
             this.boxDepression.Location = new System.Drawing.Point(110, 539);
             this.boxDepression.Name = "boxDepression";
-            this.boxDepression.Size = new System.Drawing.Size(100, 21);
+            this.boxDepression.Size = new System.Drawing.Size(100, 24);
             this.boxDepression.TabIndex = 30;
             this.boxDepression.Text = "200.0";
             // 
@@ -387,7 +390,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(18, 542);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.Size = new System.Drawing.Size(107, 17);
             this.label16.TabIndex = 29;
             this.label16.Text = "Depression, atm";
             // 
@@ -397,7 +400,7 @@
             this.label15.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label15.Location = new System.Drawing.Point(18, 503);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(112, 13);
+            this.label15.Size = new System.Drawing.Size(134, 17);
             this.label15.TabIndex = 28;
             this.label15.Text = "System properties";
             // 
@@ -405,7 +408,7 @@
             // 
             this.boxWaterVisc.Location = new System.Drawing.Point(110, 458);
             this.boxWaterVisc.Name = "boxWaterVisc";
-            this.boxWaterVisc.Size = new System.Drawing.Size(100, 21);
+            this.boxWaterVisc.Size = new System.Drawing.Size(100, 24);
             this.boxWaterVisc.TabIndex = 27;
             this.boxWaterVisc.Text = "0.7";
             // 
@@ -414,7 +417,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(18, 461);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(76, 13);
+            this.label13.Size = new System.Drawing.Size(96, 17);
             this.label13.TabIndex = 26;
             this.label13.Text = "Water visc, cP";
             // 
@@ -422,7 +425,7 @@
             // 
             this.boxOilVisc.Location = new System.Drawing.Point(110, 429);
             this.boxOilVisc.Name = "boxOilVisc";
-            this.boxOilVisc.Size = new System.Drawing.Size(100, 21);
+            this.boxOilVisc.Size = new System.Drawing.Size(100, 24);
             this.boxOilVisc.TabIndex = 25;
             this.boxOilVisc.Text = "12.0";
             // 
@@ -431,7 +434,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(18, 432);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(58, 13);
+            this.label14.Size = new System.Drawing.Size(72, 17);
             this.label14.TabIndex = 24;
             this.label14.Text = "Oil visc, cP";
             // 
@@ -441,7 +444,7 @@
             this.label12.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label12.Location = new System.Drawing.Point(18, 395);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(101, 13);
+            this.label12.Size = new System.Drawing.Size(122, 17);
             this.label12.TabIndex = 23;
             this.label12.Text = "Fluids properties";
             // 
@@ -451,7 +454,7 @@
             this.label11.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label11.Location = new System.Drawing.Point(18, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(124, 13);
+            this.label11.Size = new System.Drawing.Size(148, 17);
             this.label11.TabIndex = 22;
             this.label11.Text = "Reservoir properties";
             // 
@@ -459,7 +462,7 @@
             // 
             this.boxLines.Location = new System.Drawing.Point(110, 354);
             this.boxLines.Name = "boxLines";
-            this.boxLines.Size = new System.Drawing.Size(100, 21);
+            this.boxLines.Size = new System.Drawing.Size(100, 24);
             this.boxLines.TabIndex = 21;
             this.boxLines.Text = "500";
             // 
@@ -468,7 +471,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(18, 357);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.Size = new System.Drawing.Size(38, 17);
             this.label10.TabIndex = 20;
             this.label10.Text = "Lines";
             // 
@@ -476,7 +479,7 @@
             // 
             this.boxPermMean.Location = new System.Drawing.Point(110, 300);
             this.boxPermMean.Name = "boxPermMean";
-            this.boxPermMean.Size = new System.Drawing.Size(100, 21);
+            this.boxPermMean.Size = new System.Drawing.Size(100, 24);
             this.boxPermMean.TabIndex = 19;
             this.boxPermMean.Text = "50.0";
             // 
@@ -485,7 +488,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(18, 303);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 13);
+            this.label9.Size = new System.Drawing.Size(108, 17);
             this.label9.TabIndex = 18;
             this.label9.Text = "Perm mean, mD";
             // 
@@ -493,7 +496,7 @@
             // 
             this.boxPermV2.Location = new System.Drawing.Point(110, 327);
             this.boxPermV2.Name = "boxPermV2";
-            this.boxPermV2.Size = new System.Drawing.Size(100, 21);
+            this.boxPermV2.Size = new System.Drawing.Size(100, 24);
             this.boxPermV2.TabIndex = 17;
             this.boxPermV2.Text = "0.600";
             // 
@@ -502,7 +505,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(18, 330);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.Size = new System.Drawing.Size(66, 17);
             this.label8.TabIndex = 16;
             this.label8.Text = "Perms V2";
             // 
@@ -510,7 +513,7 @@
             // 
             this.boxKRW.Location = new System.Drawing.Point(110, 215);
             this.boxKRW.Name = "boxKRW";
-            this.boxKRW.Size = new System.Drawing.Size(100, 21);
+            this.boxKRW.Size = new System.Drawing.Size(100, 24);
             this.boxKRW.TabIndex = 15;
             this.boxKRW.Text = "0.200";
             // 
@@ -519,7 +522,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(18, 218);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(25, 13);
+            this.label7.Size = new System.Drawing.Size(31, 17);
             this.label7.TabIndex = 14;
             this.label7.Text = "Krw";
             // 
@@ -527,7 +530,7 @@
             // 
             this.boxSOWC.Location = new System.Drawing.Point(110, 188);
             this.boxSOWC.Name = "boxSOWC";
-            this.boxSOWC.Size = new System.Drawing.Size(100, 21);
+            this.boxSOWC.Size = new System.Drawing.Size(100, 24);
             this.boxSOWC.TabIndex = 13;
             this.boxSOWC.Text = "0.35";
             // 
@@ -536,7 +539,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(18, 191);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(32, 13);
+            this.label6.Size = new System.Drawing.Size(41, 17);
             this.label6.TabIndex = 12;
             this.label6.Text = "Sowc";
             // 
@@ -544,7 +547,7 @@
             // 
             this.boxSWCR.Location = new System.Drawing.Point(110, 161);
             this.boxSWCR.Name = "boxSWCR";
-            this.boxSWCR.Size = new System.Drawing.Size(100, 21);
+            this.boxSWCR.Size = new System.Drawing.Size(100, 24);
             this.boxSWCR.TabIndex = 11;
             this.boxSWCR.Text = "0.20";
             // 
@@ -553,7 +556,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(18, 164);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(38, 17);
             this.label5.TabIndex = 10;
             this.label5.Text = "Swcr";
             // 
@@ -561,7 +564,7 @@
             // 
             this.boxPoro.Location = new System.Drawing.Point(110, 134);
             this.boxPoro.Name = "boxPoro";
-            this.boxPoro.Size = new System.Drawing.Size(100, 21);
+            this.boxPoro.Size = new System.Drawing.Size(100, 24);
             this.boxPoro.TabIndex = 9;
             this.boxPoro.Text = "0.06";
             // 
@@ -570,7 +573,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(18, 137);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(58, 17);
             this.label4.TabIndex = 8;
             this.label4.Text = "Porosity";
             // 
@@ -578,7 +581,7 @@
             // 
             this.boxWidth.Location = new System.Drawing.Point(110, 107);
             this.boxWidth.Name = "boxWidth";
-            this.boxWidth.Size = new System.Drawing.Size(100, 21);
+            this.boxWidth.Size = new System.Drawing.Size(100, 24);
             this.boxWidth.TabIndex = 7;
             this.boxWidth.Text = "100.0";
             // 
@@ -587,7 +590,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 110);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.Size = new System.Drawing.Size(106, 17);
             this.label3.TabIndex = 6;
             this.label3.Text = "Width model, m";
             // 
@@ -595,7 +598,7 @@
             // 
             this.boxHeight.Location = new System.Drawing.Point(110, 78);
             this.boxHeight.Name = "boxHeight";
-            this.boxHeight.Size = new System.Drawing.Size(100, 21);
+            this.boxHeight.Size = new System.Drawing.Size(100, 24);
             this.boxHeight.TabIndex = 5;
             this.boxHeight.Text = "10.0";
             // 
@@ -604,7 +607,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.Size = new System.Drawing.Size(108, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "Height model, m";
             // 
@@ -612,7 +615,7 @@
             // 
             this.boxLength.Location = new System.Drawing.Point(110, 49);
             this.boxLength.Name = "boxLength";
-            this.boxLength.Size = new System.Drawing.Size(100, 21);
+            this.boxLength.Size = new System.Drawing.Size(100, 24);
             this.boxLength.TabIndex = 3;
             this.boxLength.Text = "500.0";
             // 
@@ -621,7 +624,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.Size = new System.Drawing.Size(112, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Length model, m";
             // 
@@ -632,10 +635,10 @@
             this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.numericUpDown1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(787, 674);
+            this.tabPage2.Size = new System.Drawing.Size(787, 670);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -707,7 +710,6 @@
             chartArea3.CursorY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             chartArea3.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea3);
-            this.tableLayoutPanel1.SetColumnSpan(this.chart2, 2);
             legend3.Enabled = false;
             legend3.Name = "Legend1";
             this.chart2.Legends.Add(legend3);
@@ -720,7 +722,7 @@
             series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series4.Name = "Series1";
             this.chart2.Series.Add(series4);
-            this.chart2.Size = new System.Drawing.Size(769, 261);
+            this.chart2.Size = new System.Drawing.Size(381, 261);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             title1.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
@@ -738,22 +740,31 @@
             chartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea4.AxisX.IsLabelAutoFit = false;
             chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
-            chartArea4.AxisX.LabelStyle.Format = "N1";
-            chartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.AxisX.LabelStyle.Format = "N3";
+            chartArea4.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX.Maximum = 1D;
+            chartArea4.AxisX.Minimum = 0D;
             chartArea4.AxisX.ScaleView.MinSize = 0D;
             chartArea4.AxisX.ScaleView.SmallScrollMinSize = 0D;
             chartArea4.AxisX.ScrollBar.IsPositionedInside = false;
-            chartArea4.AxisX.Title = "Sw";
+            chartArea4.AxisX.Title = "Qo/Qi";
             chartArea4.AxisX.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
             chartArea4.AxisY.IsLabelAutoFit = false;
             chartArea4.AxisY.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
             chartArea4.AxisY.LabelStyle.Format = "N1";
-            chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             chartArea4.AxisY.ScaleView.MinSize = 0D;
             chartArea4.AxisY.ScaleView.SmallScrollMinSize = 0D;
             chartArea4.AxisY.ScrollBar.IsPositionedInside = false;
-            chartArea4.AxisY.Title = "Kro, Krw";
+            chartArea4.AxisY.Title = "Viscocity, cP";
             chartArea4.AxisY.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.AxisY2.IsLabelAutoFit = false;
+            chartArea4.AxisY2.LabelStyle.Font = new System.Drawing.Font("Tahoma", 7.5F);
+            chartArea4.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisY2.Maximum = 1D;
+            chartArea4.AxisY2.Minimum = 0D;
+            chartArea4.AxisY2.Title = "Water Cut";
+            chartArea4.AxisY2.TitleFont = new System.Drawing.Font("Tahoma", 7.5F);
             chartArea4.CursorX.Interval = 0.01D;
             chartArea4.CursorX.IsUserSelectionEnabled = true;
             chartArea4.CursorX.LineColor = System.Drawing.Color.Black;
@@ -770,15 +781,18 @@
             this.chart4.Location = new System.Drawing.Point(390, 270);
             this.chart4.Name = "chart4";
             series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series5.Legend = "Legend1";
             series5.MarkerSize = 7;
             series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series5.Name = "Series1";
             series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Legend = "Legend1";
+            series6.MarkerSize = 7;
+            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series6.Name = "Series2";
+            series6.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             this.chart4.Series.Add(series5);
             this.chart4.Series.Add(series6);
             this.chart4.Size = new System.Drawing.Size(382, 261);
@@ -786,7 +800,7 @@
             this.chart4.Text = "chart4";
             title2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             title2.Name = "Title1";
-            title2.Text = "Relative Permability";
+            title2.Text = "Apparent Viscocity";
             this.chart4.Titles.Add(title2);
             // 
             // chart3
@@ -863,7 +877,7 @@
             "Year"});
             this.comboBox1.Location = new System.Drawing.Point(143, 32);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(77, 21);
+            this.comboBox1.Size = new System.Drawing.Size(77, 25);
             this.comboBox1.TabIndex = 24;
             // 
             // label17
@@ -872,7 +886,7 @@
             this.label17.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label17.Location = new System.Drawing.Point(18, 16);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 13);
+            this.label17.Size = new System.Drawing.Size(41, 17);
             this.label17.TabIndex = 23;
             this.label17.Text = "Time";
             // 
@@ -885,13 +899,13 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(116, 21);
+            this.numericUpDown1.Size = new System.Drawing.Size(116, 24);
             this.numericUpDown1.TabIndex = 4;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // CenterScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(823, 724);
             this.Controls.Add(this.tabControl1);
