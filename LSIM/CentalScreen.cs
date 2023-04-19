@@ -121,6 +121,8 @@ namespace LSIM
             }
 
             GenerateLookUpTables();
+
+            double wa = GetW(0.5);
         }
 
         public double GetSwd(double Sw)
@@ -237,10 +239,26 @@ namespace LSIM
 
             return LaSum / dfwdSwi;
         }
-    
+
+
+        List<Tuple<double, double>> W = new List<Tuple<double, double>>();
+        List<Tuple<double, double>> LA = new List<Tuple<double, double>>();
+
+        double GetW(double Q)
+        {
+            for (int iw = 0; iw < W.Count; ++iw)
+            {
+                if (W[iw].Item1 < Q && W[iw + 1].Item1 >= Q)
+                {
+                    double prop = (Q - W[iw].Item1) / (W[iw + 1].Item1 - W[iw].Item1);
+                    return W[iw].Item2 + prop * (W[iw + 1].Item2 - W[iw].Item2);
+                }
+            }
+
+            return 1;
+        }
     public void GenerateLookUpTables()
         {
-
             chart4.Series[0].Points.Clear();
             chart4.Series[1].Points.Clear();
 
@@ -286,6 +304,11 @@ namespace LSIM
 
                 chart4.Series[0].Points.AddXY(Qi_t * 160.285 / Qo, 1000 * La_t);
                 chart4.Series[1].Points.AddXY(Qi_t * 160.285 / Qo, WCT);
+
+
+                LA.Add(new Tuple<double, double>(Qi_t * 160.285 / Qo, 1000 * La_t));
+                W.Add(new Tuple<double, double>( Qi_t * 160.285 / Qo, WCT ));
+
                 //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi_t:N3}\t{Qi_t:N3}\t{Qi_t * 160.285:N3}\t{La_t:N4}");
 
                 Qi_t_prev = Qi_t;
@@ -323,7 +346,12 @@ namespace LSIM
 
                     chart4.Series[0].Points.AddXY(160.285 * (Swav - Swcr) / Qo, 1000 * La);
                     chart4.Series[1].Points.AddXY(160.285 * (Swav - Swcr) / Qo, WCT);
-                    //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi:N3}\t{Qi:N3}\t{160.285 * (Swav - BL.Swi):N3}\t{La:N4}");
+
+               
+                LA.Add(new Tuple<double, double>(160.285 * (Swav - Swcr) / Qo, 1000 * La));
+                W.Add(new Tuple<double, double>(160.285 * (Swav - Swcr) / Qo, WCT));
+
+                //text.WriteLine($"{time:F1}\t{qo:N2}\t{qw:N2}\t{qt_t:N2}\t{WCT:N3}\t{Qi:N3}\t{Qi:N3}\t{160.285 * (Swav - BL.Swi):N3}\t{La:N4}");
                 //}
 
                 Qi_t_prev = Qi;
@@ -334,6 +362,10 @@ namespace LSIM
 
             chart4.Series[0].Points.AddXY(1, 1000 * VISCW / KRW);
             chart4.Series[1].Points.AddXY(1, 1);
+
+            LA.Add(new Tuple<double, double>(1, 1000 * VISCW/ KRW));
+            W.Add(new Tuple<double, double>(1, 1));
+
         }
 
         public double GetLiquidRate(double La)
