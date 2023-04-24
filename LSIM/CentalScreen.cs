@@ -37,6 +37,8 @@ namespace LSIM
         public double[] VISC;
         public double[] Z;
         public double[] Q;
+        public double[] LIQ;
+        public double[] OIL;
 
 
         public double PV;
@@ -122,7 +124,50 @@ namespace LSIM
 
             GenerateLookUpTables();
 
-            double wa = GetW(0.5);
+            /// Расчет показателей разработки одного слоя
+
+            double T = 30; // days
+
+            LIQ = new double[PERM.Length];
+            OIL = new double[PERM.Length];
+
+
+            for (int IT = 0; IT < 120; ++IT)
+            {
+                for (int IW = 0; IW < PERM.Length; ++IW)
+                {
+
+                    // Prev 
+                    double mOIP = Q[IW] / (OIP / PERM.Length);
+                    double mLa = GetL(mOIP);
+                    double mW = GetW(mOIP);
+                    double mLiq = 86400 * B * (H / PERM.Length) * 1e-15 * PERM[IW] * DP / (L * 0.001 * mLa);
+
+                    LIQ[IW] = mLiq;
+                    OIL[IW] = mLiq * (1 - mW);
+
+                    // Next
+
+                    double CLIQ = mLiq * T;
+                    double aW = mW;
+                    double ppCLIQ = CLIQ;
+                    do
+                    {
+                        double nOIP = (Q[IW] + CLIQ * (1 - aW)) / (OIP / PERM.Length);
+                        double nLa = GetL(nOIP);
+                        double nLiq = 86400 * B * (H / PERM.Length) * 1e-15 * PERM[IW] * DP / (L * 0.001 * nLa);
+                        double aLiq = (mLiq + nLiq) / 2;
+                        ppCLIQ = CLIQ;
+                        CLIQ = aLiq * T;
+                    } while (Math.Abs(CLIQ - ppCLIQ) > 0.0001);
+
+                    Q[IW] = Q[IW] + CLIQ * (1 - aW);
+
+                    if (Q[IW] > (OIP / PERM.Length)) Q[IW] = (OIP / PERM.Length);
+                }
+            
+                System.Diagnostics.Debug.WriteLine($"LIQ = {LIQ.Sum()}  OIL = {OIL.Sum()}");
+            }
         }
 
         public double GetSwd(double Sw)
@@ -246,6 +291,8 @@ namespace LSIM
 
         double GetW(double Q)
         {
+            if (Q == 1) return W[W.Count - 1].Item2;
+
             for (int iw = 0; iw < W.Count; ++iw)
             {
                 if (W[iw].Item1 < Q && W[iw + 1].Item1 >= Q)
@@ -255,9 +302,25 @@ namespace LSIM
                 }
             }
 
-            return 1;
+            return W[0].Item2;
         }
-    public void GenerateLookUpTables()
+
+        double GetL(double Q)
+        {
+            if (Q == 1) return LA[LA.Count - 1].Item2;
+
+            for (int iw = 0; iw < LA.Count; ++iw)
+            {
+                if (LA[iw].Item1 < Q && LA[iw + 1].Item1 >= Q)
+                {
+                    double prop = (Q - LA[iw].Item1) / (LA[iw + 1].Item1 - LA[iw].Item1);
+                    return LA[iw].Item2 + prop * (LA[iw + 1].Item2 - LA[iw].Item2);
+                }
+            }
+
+            return LA[0].Item2;
+        }
+        public void GenerateLookUpTables()
         {
             chart4.Series[0].Points.Clear();
             chart4.Series[1].Points.Clear();
