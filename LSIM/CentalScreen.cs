@@ -131,6 +131,7 @@ namespace LSIM
             LIQ = new double[PERM.Length];
             OIL = new double[PERM.Length];
 
+            Q = new double[PERM.Length];
 
             for (int IT = 0; IT < 120; ++IT)
             {
@@ -199,8 +200,8 @@ namespace LSIM
 
         public double GetSwf(double Sw)
         {
-            double L = 0;
-            double R = 1;
+            double L = Swcr;
+            double R = 1 - Sowc;
             double C = 0;
 
             double Swd; // Нормированная насыщенность
@@ -291,7 +292,7 @@ namespace LSIM
 
         double GetW(double Q)
         {
-            if (Q == 1) return W[W.Count - 1].Item2;
+            if (Q >= 1) return W[W.Count - 1].Item2;
 
             for (int iw = 0; iw < W.Count; ++iw)
             {
@@ -307,7 +308,7 @@ namespace LSIM
 
         double GetL(double Q)
         {
-            if (Q == 1) return LA[LA.Count - 1].Item2;
+            if (Q >= 1) return LA[LA.Count - 1].Item2;
 
             for (int iw = 0; iw < LA.Count; ++iw)
             {
@@ -404,8 +405,6 @@ namespace LSIM
                // if (i > 0)
                // {
                     time = time + 2 * (Qi - Qi_t_prev) * 160285 / (qt_t + qt_t_prev);
-
-                    listOutput.Items.Add(String.Format("{0} \t {1}", 160.285 * (Swav - Swcr)/Qo, La));
 
                     chart4.Series[0].Points.AddXY(160.285 * (Swav - Swcr) / Qo, 1000 * La);
                     chart4.Series[1].Points.AddXY(160.285 * (Swav - Swcr) / Qo, WCT);
